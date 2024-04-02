@@ -59,7 +59,8 @@ tNFC_STATUS hook_NFC_SetConfig(uint8_t tlv_size, uint8_t *p_param_tlvs) {
 
         // log config values with type codes
         std::stringstream bruce;
-        bruce << "NFC_SetConfig Option " << opt.name() << "(" << (int)opt.type() << ", "
+        bruce << "NFC_SetConfig Option " << opt.name() << "("
+              << std::hex << (int)opt.type() << std::dec << ", "
               << (!globals.guardEnabled ? "own" : "system") << ", "
               << (globals.guardEnabled && conflict ? "blocked" : "pass") << ")";
         loghex(bruce.str().c_str(), opt.value(), opt.len());
