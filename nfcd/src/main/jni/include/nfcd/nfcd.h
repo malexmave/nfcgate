@@ -9,6 +9,19 @@
 #include <nfcd/helper/System.h>
 #include <nfcd/hook/IHook.h>
 
+/*
+ * enable(1) or disable(0) any permutation of these to test the code
+ *
+ * remember to always re-build, re-install the app and terminate
+ * the com.android.nfc process to reload the hook (e.g. killall com.android.nfc in adb)
+ * when testing a new combination
+ */
+#define DEBUG_1 1
+#define DEBUG_2 1
+#define DEBUG_3 1
+#define DEBUG_4 1
+#define DEBUG_5 1
+
 extern tNFC_STATUS hook_NFC_SetConfig(uint8_t tlv_size, uint8_t *p_param_tlvs);
 extern tNFA_STATUS hook_NFA_Enable(void *p_dm_cback, void *p_conn_cback);
 extern tNFC_STATUS hook_ce_select_t4t (void);

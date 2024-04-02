@@ -102,6 +102,19 @@ extern "C" {
             // begin re-routing AIDs
             globals.patchEnabled = true;
 
+#if DEBUG_4
+            // disable CON_DISCOVERY_PARAM right before setting the hook values
+            Config config4;
+            config4.add(0x02, (uint8_t *)"\x00", 1);
+            applyConfig(config4);
+#endif
+#if DEBUG_5
+            // disable NFCC_CONFIG_CONTROL right before setting the hook values
+            Config config5;
+            config5.add(0x85, (uint8_t *)"\x00", 1);
+            applyConfig(config5);
+#endif
+
             // disable discovery before changing anything
             nfaDisableDiscovery();
             {

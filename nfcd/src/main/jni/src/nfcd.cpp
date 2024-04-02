@@ -35,6 +35,28 @@ tNFC_STATUS hook_NFC_SetConfig(uint8_t tlv_size, uint8_t *p_param_tlvs) {
             if (hook_opt.type() == opt.type())
                 conflict = true;
 
+#if DEBUG_1
+        if (opt.type() == 0x85) // block NFCC_CONFIG_CONTROL from ever being applied
+            conflict = true;
+#endif
+#if DEBUG_2
+        if (opt.type() == 0x02) // block CON_DISCOVERY_PARAM from ever being applied
+            conflict = true;
+#endif
+#if DEBUG_3
+        // when LA_BIT_FRAME_SDD is being set by the system, also set an NFCID
+        if (opt.type() == 0x30) {
+            actual.add(0x33, (uint8_t *) "\x04\x54\x51\x72\x1e\x73\x80", 7);
+
+            // log config values with type codes
+            std::stringstream bruce;
+            bruce << "NFC_SetConfig Option " << "LA_NFCID1" << "(" << "0x33" << ", "
+                  << (!globals.guardEnabled ? "own" : "system") << ", "
+                  << "pass" << ")";
+            loghex(bruce.str().c_str(), opt.value(), opt.len());
+        }
+#endif
+
         // log config values with type codes
         std::stringstream bruce;
         bruce << "NFC_SetConfig Option " << opt.name() << "(" << (int)opt.type() << ", "
@@ -123,6 +145,8 @@ HookGlobals::HookGlobals() {
     // try to obtain handle of already loaded library
     mHandle = dlopen(mLibrary.c_str(), RTLD_NOLOAD);
     LOG_ASSERT_S(mHandle, return, "Could not obtain library handle");
+
+    LOGI("Debug configuration: DEBUG_1=%d DEBUG2=%d DEBUG3=%d DEBUG4=%d DEBUG5=%d", DEBUG_1, DEBUG_2, DEBUG_3, DEBUG_4, DEBUG_5);
 
     // begin installing hooks
     IHook::init();
