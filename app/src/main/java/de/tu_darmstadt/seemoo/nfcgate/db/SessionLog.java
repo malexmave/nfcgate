@@ -17,7 +17,7 @@ public class SessionLog {
     }
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    public int id;
 
     @ColumnInfo
     private Date date;
