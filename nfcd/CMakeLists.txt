@@ -32,3 +32,6 @@ target_link_libraries(nfcgate android log xh)
 # include directory
 target_include_directories(nfcgate PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/main/jni/include/)
 
+# for reproducible build
+target_link_options(nfcgate PRIVATE LINKER:--build-id=none)
+target_compile_options(nfcgate PRIVATE "-ffile-prefix-map=${CMAKE_CURRENT_SOURCE_DIR}=nfcd")
