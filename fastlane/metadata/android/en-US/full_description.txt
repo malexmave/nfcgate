@@ -1,0 +1,12 @@
+NFCGate is an Android application meant to capture, analyze, or modify NFC traffic. It can be used as a researching tool to reverse engineer protocols or assess the security of protocols against traffic modifications.
+
+<ul>
+<li><strong>On-device capture</strong>: Captures NFC traffic sent and received by other applications running on the
+device.</li>
+<li><strong>Relay</strong>: Relays NFC traffic between two devices
+using <a href="https://github.com/nfcgate/server">a server</a>. One device operates as a "reader" reading an
+NFC tag, the other device emulates an NFC tag using the Host Card Emulation (HCE).</li>
+<li><strong>Replay</strong>: Replays previously captured NFC traffic in either "reader" or "tag" mode.</li>
+<li><strong>Clone</strong>: Clones the initial tag information (e.g. ID).</li>
+<li><a href="https://github.com/pcapng/pcapng">pcapng</a> export of captured NFC traffic, readable by Wireshark.</li>
+</ul>
