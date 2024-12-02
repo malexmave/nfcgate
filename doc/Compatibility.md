@@ -38,3 +38,4 @@ that issue, please open an issue so the workaround can be included in the new ve
 | Samsung Galaxy S8+         | Samsung (S3NRN82) | 10              | OneUI 2.5 mod (hadesRom_Q_OneUI_v3.0-FUK2) |   y   |         y         |   y   |   y    |                                                      |
 | Xiaomi MI 6 (sagit)        | NXP (PN80T)       | 9               | PixelExperience 9 (20180912-0720)          |   y   |         y         |   y   |   y    |                                                      |
 |                            |                   | 9               | Stock MIUI 11.0.5 (PKQ1.190118.001)        |   y   |         y         |   y   |   y    |                                                      |
+| Sony Xperia X (F5121, suzu)| NXP (nq-nci drv)  | 13              | LineageOS 20 (TQ3A.230901.001)             |   n   |         y         |   ?   |   n    |                                                      |
