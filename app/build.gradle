@@ -24,7 +24,7 @@ android {
     defaultConfig {
         applicationId 'de.tu_darmstadt.seemoo.nfcgate'
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 35
         multiDexEnabled true
         versionCode 14
         versionName '2.4.4'
