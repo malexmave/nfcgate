@@ -71,5 +71,6 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/navbar_header"
         app:menu="@menu/navbar_items"
+        android:fitsSystemWindows="false"
         />
 </androidx.drawerlayout.widget.DrawerLayout>
