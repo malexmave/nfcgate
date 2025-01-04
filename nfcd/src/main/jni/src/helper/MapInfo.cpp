@@ -11,8 +11,13 @@ bool MapInfo::create() {
         auto *instance = (MapInfo *)user_data;
 
         // map library name to new library entry with base address
-        auto &entry = *instance->mLibraryData.try_emplace(info->dlpi_name, info->dlpi_addr, info->dlpi_name).first;
+        auto &entry = *instance->mLibraryData.try_emplace(info->dlpi_name, info->dlpi_name).first;
         for (size_t i = 0; i < info->dlpi_phnum; i++) {
+            // set base address to relocation + PT_LOAD vaddr if not already set
+            // PT_LOAD headers are sorted in ascending vaddr order so using the first is correct
+            if (info->dlpi_phdr[i].p_type == PT_LOAD && entry.second.base == 0)
+                entry.second.base = info->dlpi_addr + info->dlpi_phdr[i].p_vaddr;
+
             entry.second.ranges.emplace_back(
                     // range start address
                     info->dlpi_addr + info->dlpi_phdr[i].p_vaddr,

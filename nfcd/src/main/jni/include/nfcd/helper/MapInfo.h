@@ -15,9 +15,9 @@ public:
         uint8_t perms;
     };
     struct LibraryData {
-        explicit LibraryData(uintptr_t b, const std::string &l) : base(b), label(l) { }
+        explicit LibraryData(const std::string &l) : label(l) { }
 
-        uintptr_t base;
+        uintptr_t base = 0;
         std::string label;
         std::vector<RangeData> ranges;
     };
