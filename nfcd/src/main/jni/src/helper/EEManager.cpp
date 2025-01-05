@@ -46,9 +46,11 @@ std::set<uint16_t> EEManager::findActiveEEs() const {
             LOGD("EE found: %x with {status=%d, ee_interface=[%s], la_protocol=%d, lb_protocol=%d, lf_protocol=%d}",
                  ee_handle, ee_status, str_ee_interfaces.c_str(), la_protocol, lb_protocol, lf_protocol);
 
-            // only non-deactivated proprietary EEs
             auto itProp = std::find(ee_interface.begin(), ee_interface.end(), NCI_NFCEE_INTERFACE_PROPRIETARY);
-            if (ee_status != NFA_EE_STATUS_INACTIVE && itProp != ee_interface.end())
+            bool proprietaryOrNoInterface = itProp != ee_interface.end() || ee_interface.empty();
+
+            // only non-deactivated proprietary EEs or EEs without an interface
+            if (ee_status != NFA_EE_STATUS_INACTIVE && proprietaryOrNoInterface)
                 result.insert(ee_handle);
         }
     }
