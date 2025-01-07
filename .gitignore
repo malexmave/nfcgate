@@ -1,6 +1,9 @@
 .DS_Store
 /app/manifest-merger-release-report.txt
 
+# downloaded before build
+/app/src/main/res/raw/by_device.json
+
 # CI/CD
 .ci-files/
 

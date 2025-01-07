@@ -1,7 +1,13 @@
+import java.security.MessageDigest
+
 plugins {
     id 'com.android.application'
     id 'com.palantir.git-version' version '3.1.0' apply(false)
 }
+
+// load device json from here
+def deviceJsonURL = "https://github.com/androidtrackers/certified-android-devices/raw/87c28e/by_device.json"
+def deviceJsonHash = "8b08689ecdf42a4b6b43700344192a377eba494c3e25e65ff1eacc9f8f4a0c7d"
 
 // load keystore properties from secure files in GitLab
 def keystoreProperties = new Properties()
@@ -60,6 +66,17 @@ android {
         }
     }
 
+    tasks.register('downloadDeviceJson') {
+        def deviceJson = rootProject.file('app/src/main/res/raw/by_device.json')
+        def digest = MessageDigest.getInstance("SHA-256")
+
+        // download file only if it does not exist or has hash mismatch
+        if (!deviceJson.exists() || deviceJsonHash != digest.digest(deviceJson.bytes).encodeHex().toString()) {
+            deviceJson.getParentFile().mkdirs()
+            deviceJson.withOutputStream { out -> new URL(deviceJsonURL).withInputStream { from -> out << from } }
+        }
+    }
+    preBuild.dependsOn('downloadDeviceJson')
 
     buildTypes {
         release {
@@ -97,9 +114,6 @@ dependencies {
 
     // About
     implementation 'com.github.medyo:android-about-page:1.2.4'
-
-    // Detect phone model
-    implementation 'com.jaredrummler:android-device-names:2.1.1'
 
     // Room
     implementation 'androidx.room:room-runtime:2.3.0'

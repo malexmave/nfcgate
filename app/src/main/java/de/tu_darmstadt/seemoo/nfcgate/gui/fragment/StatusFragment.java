@@ -18,14 +18,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jaredrummler.android.device.DeviceName;
-
 import de.tu_darmstadt.seemoo.nfcgate.R;
 import de.tu_darmstadt.seemoo.nfcgate.gui.component.CustomArrayAdapter;
 import de.tu_darmstadt.seemoo.nfcgate.gui.component.ContentShare;
 import de.tu_darmstadt.seemoo.nfcgate.gui.component.StatusItem;
 import de.tu_darmstadt.seemoo.nfcgate.nfc.NfcManager;
 import de.tu_darmstadt.seemoo.nfcgate.nfc.chip.NfcChip;
+import de.tu_darmstadt.seemoo.nfcgate.util.DeviceNames;
 
 public class StatusFragment extends BaseFragment {
     // ui references
@@ -151,11 +150,10 @@ public class StatusFragment extends BaseFragment {
 
     StatusItem detectDeviceName() {
         // transform code name into market name
-        String marketName = DeviceName.getDeviceName(Build.DEVICE, Build.MODEL, null);
-        String marketNameOptional = !Build.MODEL.equalsIgnoreCase(marketName) ? " (" + marketName + ")" : "";
-        String value = String.format("%s [%s]%s", Build.MODEL, Build.DEVICE, marketNameOptional);
+        String deviceString = new DeviceNames(getContext()).formatCurrentDeviceName();
+
         // device name should be OK for all supported devices
-        StatusItem result = new StatusItem(getContext(), getString(R.string.status_devname)).setValue(value);
+        StatusItem result = new StatusItem(getContext(), getString(R.string.status_devname)).setValue(deviceString);
 
         // No hist byte on this specific combination
         if ("Nexus 5X".equals(Build.MODEL) && Build.VERSION.RELEASE.equals("6.0.1"))
