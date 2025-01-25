@@ -104,7 +104,7 @@ public class SessionLogEntryFragment extends Fragment {
         final SessionLogEntryViewModel mLogEntryModel = ViewModelProviders.of(this, new SessionLogEntryViewModelFactory(getActivity().getApplication(), mSessionId))
                 .get(SessionLogEntryViewModel.class);
 
-        mLogEntryModel.getSession().observe(this, sessionLogJoin -> {
+        mLogEntryModel.getSession().observe(getViewLifecycleOwner(), sessionLogJoin -> {
             mLogEntriesAdapter.clear();
             mLogData.clear();
 

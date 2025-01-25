@@ -55,7 +55,7 @@ public class LoggingFragment extends Fragment {
 
         // setup db model
         SessionLogViewModel mLogModel = ViewModelProviders.of(this).get(SessionLogViewModel.class);
-        mLogModel.getSessionLogs().observe(this, sessionLogs -> {
+        mLogModel.getSessionLogs().observe(getViewLifecycleOwner(), sessionLogs -> {
             mLogAdapter.clear();
             mLogAdapter.addAll(sessionLogs);
             mLogAdapter.notifyDataSetChanged();

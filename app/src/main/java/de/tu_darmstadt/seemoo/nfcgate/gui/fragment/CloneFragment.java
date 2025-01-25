@@ -62,7 +62,7 @@ public class CloneFragment extends BaseFragment {
 
         // setup db model
         mTagInfoViewModel = ViewModelProviders.of(this).get(TagInfoViewModel.class);
-        mTagInfoViewModel.getTagInfos().observe(this, tagInfos -> {
+        mTagInfoViewModel.getTagInfos().observe(getViewLifecycleOwner(), tagInfos -> {
             mTagInfoAdapter.clear();
             mTagInfoAdapter.addAll(tagInfos);
             mTagInfoAdapter.notifyDataSetChanged();
