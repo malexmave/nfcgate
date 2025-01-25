@@ -15,9 +15,20 @@ default:
     - export GRADLE_USER_HOME=/gradle-cache/.gradle
 
 stages:
+  - check
   - build
   - test
   - release
+
+lint:
+  stage: check
+  script:
+    - ./gradlew lint
+  artifacts:
+    paths:
+      # collects lint reports
+      - app/build/reports/
+    name: "NFCGate-build-reports"
 
 build:
   stage: build
