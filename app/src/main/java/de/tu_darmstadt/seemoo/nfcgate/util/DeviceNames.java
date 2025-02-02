@@ -8,10 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import de.tu_darmstadt.seemoo.nfcgate.R;
@@ -46,9 +44,8 @@ public final class DeviceNames {
     private String loadJsonByDevice(Context context) {
         // read the full resource as a string
         try (InputStream is = context.getResources().openRawResource(R.raw.by_device)) {
-            return new String(is.readAllBytes(), StandardCharsets.UTF_8);
-        }
-        catch (IOException ignored) { }
+            return new String(FileUtils.readAllBytes(is), StandardCharsets.UTF_8);
+        } catch (IOException ignored) { }
 
         return "";
     }
